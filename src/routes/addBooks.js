@@ -1,6 +1,6 @@
-const {bookshelfData} = require('../data');
-const {bookshelfResponse} = require('./response');
-const {nanoid} = require("nanoid");
+const { bookshelfData } = require('../data');
+const { bookshelfResponse } = require('./response');
+const { nanoid } = require('nanoid');
 
 const addBooksHandler = (req, h) => {
     const id = nanoid(16);
@@ -14,8 +14,15 @@ const addBooksHandler = (req, h) => {
         readPage,
         reading,
     } = req.payload;
-    const updatedAt = new Data().toISOString();
-    const insertedAt = updatedAt;
+    const now = new Date().toISOString();
+
+    if (!name || name.trim() === "") {
+        return bookshelfResponse(h, null, false, "Gagal menambahkan buku. Mohon isi nama buku", 400);
+    }
+
+    if (readPage > pageCount) {
+        return bookshelfResponse(h, null, false, "Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount", 400);
+    }
 
     const newBook = {
         id,
@@ -28,41 +35,19 @@ const addBooksHandler = (req, h) => {
         readPage,
         reading,
         finished: readPage === pageCount,
-        insertedAt,
-        updatedAt,
+        insertedAt: now,
+        updatedAt: now,
     };
-
-    if (name === "" || !name) {
-        return bookshelfResponse(h,
-            null,
-            false,
-            "Gagal menambahkan buku. Mohon isi nama buku",
-            400);
-    }
-
-    if (readPage > pageCount) {
-        return bookshelfResponse(
-            h,
-            null,
-            false,
-            "Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount",
-            400
-        );
-    }
 
     bookshelfData.push(newBook);
 
-    return bookshelfResponse(
-        h,
-        {bookId: id},
-        true,
-        "Buku berhasil ditambahkan",
-        201
-    );
-}
+    return bookshelfResponse(h, { bookId: id }, true, "Buku berhasil ditambahkan", 201);
+};
 
-exports.addBooks = {
+const addBooks = {
     method: "POST",
     path: '/books',
     handler: addBooksHandler,
-}
+};
+
+module.exports = addBooks;

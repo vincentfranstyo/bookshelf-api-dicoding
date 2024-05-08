@@ -17,13 +17,7 @@ const getBooksHandler = (req, h) => {
         books = books.filter(book => book.finished === finished);
     }
 
-    const displayed = books.map(book => {
-        return {
-            id: book.id,
-            name: book.name,
-            publisher: book.publisher,
-        }
-    })
+    const displayed = books.map(({ id, name, publisher }) => ({ id, name, publisher }));
     return bookshelfResponse(h, {books: displayed}, true, null, 200);
 }
 

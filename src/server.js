@@ -1,4 +1,4 @@
-const Hapi = require('@hapi/hapi');
+const Hapi = require('@hapi/hapi')
 const { addBooks } = require('./routes/addBooks');
 const { getBooks } = require('./routes/getBooks');
 const { getBookById } = require('./routes/getBookById');
