@@ -1,3 +1,3 @@
 let bookshelfData = []
 
-module.exports = bookshelfData
+exports.bookshelfData = bookshelfData

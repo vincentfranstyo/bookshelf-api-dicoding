@@ -67,10 +67,8 @@ const updateBookByIdHandler = (req, h) => {
 		);
 }
 
-const updateBookById = {
+exports.updateBookById = {
     method: 'PUT',
     path: '/books/{id}',
     handler: updateBookByIdHandler
 }
-
-module.exports = updateBookById

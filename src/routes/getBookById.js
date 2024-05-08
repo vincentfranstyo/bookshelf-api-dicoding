@@ -24,10 +24,8 @@ const getBookByIdHandler = (req, h) => {
     )
 }
 
-const getBookById = {
+exports.getBookById = {
     method: 'GET',
     path: '/books/{id}',
     handler: getBookByIdHandler
 }
-
-module.exports = getBookById;

@@ -16,7 +16,7 @@ const addBooksHandler = (req, h) => {
     } = req.payload;
     const now = new Date().toISOString();
 
-    if (!name || name.trim() === "") {
+    if (!name || name === "") {
         return bookshelfResponse(h, null, false, "Gagal menambahkan buku. Mohon isi nama buku", 400);
     }
 
@@ -44,10 +44,8 @@ const addBooksHandler = (req, h) => {
     return bookshelfResponse(h, { bookId: id }, true, "Buku berhasil ditambahkan", 201);
 };
 
-const addBooks = {
+exports.addBooks = {
     method: "POST",
     path: '/books',
     handler: addBooksHandler,
 };
-
-module.exports = addBooks;

@@ -27,10 +27,8 @@ const deleteBookByIdHandler = (req, h) => {
 		);
 }
 
-const deleteBookById = {
+exports.deleteBookById = {
     method: 'DELETE',
     path: '/books/{id}',
     handler: deleteBookByIdHandler
 }
-
-module.exports = deleteBookById;
